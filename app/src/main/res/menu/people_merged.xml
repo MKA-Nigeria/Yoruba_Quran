@@ -8,8 +8,4 @@
         android:icon="@drawable/ic_magnify_grey600_24dp"
         app:showAsAction="always"/>
 
-    <item
-        android:id="@+id/menu_people__settings"
-        android:title="@string/menu_people__settings"
-        app:showAsAction="never"/>
 </menu>

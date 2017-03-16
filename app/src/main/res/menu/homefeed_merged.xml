@@ -8,8 +8,5 @@
         android:icon="@drawable/ic_filter_variant_grey600_24dp"
         app:showAsAction="always"/>
 
-    <item
-        android:id="@+id/menu_homefeed__settings"
-        android:title="@string/menu_homefeed__settings"
-        app:showAsAction="never"/>
+
 </menu>
