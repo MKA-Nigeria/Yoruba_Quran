@@ -144,15 +144,4 @@ public class Chapter implements Parcelable {
         this.endFileNamePGNumPDFSizeCount = in.readString();
     }
 
-    public static final Creator<Chapter> CREATOR = new Creator<Chapter>() {
-        @Override
-        public Chapter createFromParcel(Parcel source) {
-            return new Chapter(source);
-        }
-
-        @Override
-        public Chapter[] newArray(int size) {
-            return new Chapter[size];
-        }
-    };
 }
