@@ -9,4 +9,12 @@
     <color name="red">#B0171F</color>
     <color name="toolbar_shadow">#c0c0c0</color>
 
+
+    <color name="input_text_color">#282828</color>
+    <color name="negative_button_color">#80000000</color>
+    <color name="positive_button_color">@color/colorAccent</color>
+    <color name="divider_color">#33000000</color>
+    <color name="title_color">#ffffff</color>
+    <color name="text_color">#868686</color>
+    <color name="text_color_lighter">#868686</color>
 </resources>

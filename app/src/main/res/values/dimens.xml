@@ -10,4 +10,17 @@
     <dimen name="container_max_width">600dp</dimen>
     <dimen name="container_horizontal_padding">0dp</dimen>
 
+    <!-- Panter Dialog-->
+    <dimen name="up_down_margin">30dp</dimen>
+    <dimen name="pattern_height">69dp</dimen>
+    <dimen name="input_min_height">175dp</dimen>
+    <dimen name="logo_height">42dp</dimen>
+    <dimen name="text_padding">16dp</dimen>
+    <dimen name="button_padding">18dp</dimen>
+    <dimen name="divider_stroke">0.5dp</dimen>
+    <dimen name="content_fake_margin">-5dp</dimen>
+
+    <dimen name="message_text_size">14sp</dimen>
+    <dimen name="title_text_size">18sp</dimen>
+
 </resources>
