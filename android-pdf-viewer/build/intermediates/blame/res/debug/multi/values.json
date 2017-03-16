@@ -1,5 +1,29 @@
 [
     {
+        "outputFile": "/Users/abdulmujibaliu/Desktop/Yoruba_Quran/android-pdf-viewer/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 344,
+                    "endColumn": 43,
+                    "endOffset": 383
+                },
+                "from": {
+                    "file": "/Users/abdulmujibaliu/.android/build-cache/2b4886532a08db17373417d683f7839a73fa8a1a/output/res/values/values.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 43,
+                        "endOffset": 94
+                    }
+                }
+            }
+        ]
+    },
+    {
         "outputFile": "/Users/abdulmujibaliu/Downloads/AndroidPdfViewer/android-pdf-viewer/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml",
         "map": [
             {

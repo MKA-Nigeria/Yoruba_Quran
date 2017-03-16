@@ -328,6 +328,11 @@ public class MainActivity extends BaseActivity implements MainContract.View, Nav
         }
     }
 
+    @Override
+    public void highlightHomeFeed() {
+        navigationView.setCheckedItem(R.id.menu_main_nav__settings);
+    }
+
     public void toggleDrawer() {
         if (drawer != null && drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -355,12 +360,12 @@ public class MainActivity extends BaseActivity implements MainContract.View, Nav
 
     @Override
     public void highlightSettings() {
-        //empty
+        navigationView.setCheckedItem(R.id.menu_main_nav__settings);
     }
 
     @Override
     public void highlightFeedback() {
-        //empty
+        navigationView.setCheckedItem(R.id.menu_main_nav__feedback);
     }
 
     @Override

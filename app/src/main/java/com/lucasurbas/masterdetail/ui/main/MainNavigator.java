@@ -2,13 +2,15 @@ package com.lucasurbas.masterdetail.ui.main;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
+import com.codemybrainsout.ratingdialog.RatingDialog;
 import com.lucasurbas.masterdetail.R;
 import com.lucasurbas.masterdetail.data.Chapter;
 import com.lucasurbas.masterdetail.ui.chapterdetailsfragment.ChapterDetailsFragment;
 import com.lucasurbas.masterdetail.ui.chapters.ChaptersFragment;
 import com.lucasurbas.masterdetail.ui.favorites.FavoritesFragment;
-import com.lucasurbas.masterdetail.ui.homefeed.HomeFeedFragment;
+import com.lucasurbas.masterdetail.ui.homefeed.SettingsFragment;
 import com.lucasurbas.masterdetail.ui.map.MapFragment;
 
 import javax.inject.Inject;
@@ -57,7 +59,7 @@ public class MainNavigator implements MainContract.Navigator {
         clearDetails();
         mainActivity.getCustomAppBar().setState(State.SINGLE_COLUMN_MASTER);
         mainActivity.getContainersLayout().setState(State.SINGLE_COLUMN_MASTER);
-        HomeFeedFragment fragment = HomeFeedFragment.newInstance();
+        SettingsFragment fragment = SettingsFragment.newInstance();
         mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.activity_main__frame_master, fragment, TAG_MASTER).commitNow();
     }
 
@@ -103,12 +105,52 @@ public class MainNavigator implements MainContract.Navigator {
     @Override
     public void goToSettings() {
         //start new activity
+        clearDetails();
+        mainActivity.getCustomAppBar().setState(State.SINGLE_COLUMN_MASTER);
+        mainActivity.getContainersLayout().setState(State.SINGLE_COLUMN_MASTER);
+        SettingsFragment fragment = SettingsFragment.newInstance();
+        mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.activity_main__frame_master, fragment, TAG_MASTER).commitNow();
     }
 
     @Override
     public void goToFeedback() {
         //start new activity
+        showFeedBackDialog();
     }
+
+    private void showFeedBackDialog() {
+        Toast.makeText(mainActivity, "Supposed to show diag", Toast.LENGTH_SHORT).show();
+
+        final RatingDialog ratingDialog = new RatingDialog.Builder(mainActivity)
+                .icon(mainActivity.getResources().getDrawable(R.drawable.ic_verse_bg))
+                .threshold(3)
+                .title("How was your experience with us?")
+                .titleTextColor(R.color.black)
+                .positiveButtonTextColor(R.color.white)
+                .negativeButtonTextColor(R.color.grey_500)
+                .formTitle("Submit Feedback")
+                .formHint("Tell us where we can improve")
+                .formSubmitText("Submit")
+                .formCancelText("Cancel")
+                .ratingBarColor(R.color.colorAccent)
+                .positiveButtonBackgroundColor(R.color.colorAccent)
+                .negativeButtonBackgroundColor(R.color.grey)
+                .onRatingChanged(new RatingDialog.Builder.RatingDialogListener() {
+                    @Override
+                    public void onRatingSelected(float rating, boolean thresholdCleared) {
+
+                    }
+                })
+                .onRatingBarFormSumbit(new RatingDialog.Builder.RatingDialogFormListener() {
+                    @Override
+                    public void onFormSubmitted(String feedback) {
+                        //TODO Send email to me
+                    }
+                }).build();
+
+        ratingDialog.show();
+    }
+
 
     @Override
     public boolean onBackPressed() {

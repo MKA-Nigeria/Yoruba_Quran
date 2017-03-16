@@ -63,7 +63,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void clickSettings() {
         if (view != null) {
-//            view.highlightSettings();
+            view.highlightSettings();
             view.closeDrawer();
         }
         navigator.goToSettings();
@@ -72,7 +72,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void clickFeedback() {
         if (view != null) {
-//            view.highlightHomeFeed();
+            view.highlightFeedback();
             view.closeDrawer();
         }
         navigator.goToFeedback();

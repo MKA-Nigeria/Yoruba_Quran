@@ -68,6 +68,16 @@ dependencies {
     //Unzip becuase default Aysnce task takes too long
     compile 'net.lingala.zip4j:zip4j:1.3.2'
 
+    //Feedback library --- Using a library beacuse... why bother?? ¯\_(ツ)_/¯.
+    compile 'com.codemybrainsout.rating:ratingdialog:1.0.7'
+
+
+    //HTML Formatting for settings
+    compile 'com.jrummyapps:html-builder:1.0.0' //I ended up not using this shit! ... TODO remove it!
+
+    //Opensource Libs list ... Beacuse I am thay lazy .. Also kind of strapped for time
+    compile 'com.github.marcoscgdev:EasyLicensesDialog:2.0.0'
+
     testCompile 'junit:junit:4.12'
 }
 

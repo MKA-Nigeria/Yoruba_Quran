@@ -36,6 +36,7 @@ public interface MainContract {
 
         void openDrawer();
 
+        void highlightHomeFeed();
 
         void highlightPeople();
 

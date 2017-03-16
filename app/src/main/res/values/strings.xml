@@ -1,17 +1,17 @@
 <resources>
 
-    <string name="app_name">Master/Detail</string>
+    <string name="app_name">Yoruba Quran</string>
 
-    <string name="menu_main_nav__home_feed">Home Feed</string>
+    <string name="menu_main_nav__home_feed">Settings</string>
     <string name="menu_main_nav__people">Chapters</string>
-    <string name="menu_main_nav__favorites">Favorites</string>
+    <string name="menu_main_nav__favorites">Bookmarks</string>
     <string name="menu_main_nav__map">Map</string>
     <string name="menu_main_nav__settings">Settings</string>
     <string name="menu_main_nav__feedback">Feedback</string>
 
     <string name="view_main_header__email">yourname@gmail.com</string>
 
-    <string name="fragment_homefeed__title">Home Feed</string>
+    <string name="fragment_homefeed__title">Settings</string>
     <string name="menu_homefeed__settings">Settings</string>
     <string name="menu_homefeed__filters">Filters</string>
 
@@ -20,7 +20,7 @@
     <string name="menu_people__settings">Settings</string>
     <string name="menu_people__search">Search</string>
 
-    <string name="fragment_favorites__title">Favorites</string>
+    <string name="fragment_favorites__title">Bookmarks</string>
     <string name="menu_favorites__settings">Settings</string>
     <string name="menu_favorites__heart">Favorite</string>
 
@@ -29,5 +29,36 @@
 
     <string name="menu_person_details__share">Share</string>
     <string name="menu_person_details__favorite">Favorite</string>
+    <string name="fragment_favorites__content">Coming sooon!</string>
+
+    <string name="about_body"><![CDATA[
+        designed by <b>Abdul Mujib Aliu</b>.<br/>
+        <a href=\'http://aliuamujib.com\'>Website</a>&nbsp;&nbsp;
+        <a href=\'https://twitter.com/aliumujib\'>Twitter</a>&nbsp;&nbsp;
+        <a href=\'https://google.com/+AbdulMujibAliu\'>Google+</a>&nbsp;&nbsp;
+        <a href=\'https://github.com/aliumujib\'>GitHub</a>&nbsp;&nbsp;
+        <a href=\'https://www.linkedin.com/in/abdul-mujib-aliu-3a99a4a2\'>LinkedIn</a><br/><br/>
+
+        Icon by <a href=\'https://www.linkedin.com/in/mujeeb-oniyide-103a9032\'>Oniyide Abdul-Mujeeb</a>.<br/><br/>
+
+        Play Store feature graphic by <a href=\'https://www.linkedin.com/in/mujeeb-oniyide-103a9032\'>Oniyide Abdul-Mujeeb</a>.<br/><br/>
+
+       Many more contributions from <a href=\'https://www.linkedin.com/in/mujeeb-oniyide-103a9032\'>Oniyide Abdul-Mujeeb</a>.<br/>
+        <br/>
+
+        Yoruba Quran is a free Quran application. please do not forget the contributors in your prayers.
+
+    ]]></string>
+    <string name="refresh_app_data">Refresh App Data</string>
+    <string name="refresh_app_data_desc">Refresh all app data such as Surat Names, Aayat Count etc.</string>
+    <string name="data_sources">Data Sources</string>
+    <string name="data_sources_desc">•	Quran files based on the images used for printing the Quran at Raqeem Ahmadiyya Press, Ojokoro, Lagos.
+    \n\n
+        •	Surah List and Details: "https://en.wikipedia.org/wiki/List_of_surahs_in_the_Quran"
+    </string>
+    <string name="open_source_libs">Open Source Libraries</string>
+    <string name="open_source_libs_desc">Click here to  view a list of opensource libraries and recources used in this project.</string>
+
+
 
 </resources>
