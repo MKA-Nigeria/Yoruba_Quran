@@ -2,17 +2,18 @@ package com.lucasurbas.masterdetail.ui.warning_fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lucasurbas.masterdetail.R;
+import com.lucasurbas.masterdetail.ui.main.MainActivity;
 
 import butterknife.ButterKnife;
 
@@ -50,6 +51,10 @@ public class WarningFragment extends DialogFragment {
             }
         });
         return dialog;
+    }
+
+    public static WarningFragment getInstance(MainActivity mainActivity) {
+        return new WarningFragment();
     }
 }
 

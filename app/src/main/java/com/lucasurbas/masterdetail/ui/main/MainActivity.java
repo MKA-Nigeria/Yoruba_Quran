@@ -3,23 +3,18 @@ package com.lucasurbas.masterdetail.ui.main;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.IntegerRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.OnApplyWindowInsetsListener;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.WindowInsetsCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +24,6 @@ import android.widget.Toast;
 import com.lucasurbas.masterdetail.R;
 import com.lucasurbas.masterdetail.app.Constants;
 import com.lucasurbas.masterdetail.data.Chapter;
-import com.lucasurbas.masterdetail.data.ChapterEntityManager;
 import com.lucasurbas.masterdetail.data.Download;
 import com.lucasurbas.masterdetail.data.DownloadEntityManager;
 import com.lucasurbas.masterdetail.injection.app.ApplicationComponent;
@@ -37,16 +31,13 @@ import com.lucasurbas.masterdetail.injection.main.DaggerMainComponent;
 import com.lucasurbas.masterdetail.injection.main.MainComponent;
 import com.lucasurbas.masterdetail.injection.main.MainModule;
 import com.lucasurbas.masterdetail.ui.util.BaseActivity;
-import com.lucasurbas.masterdetail.ui.util.Decompress;
+import com.lucasurbas.masterdetail.ui.warning_fragment.WarningFragment;
 import com.lucasurbas.masterdetail.ui.widget.ContainersLayout;
 import com.lucasurbas.masterdetail.ui.widget.CustomAppBar;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ProgressCallback;
-import com.parse.SaveCallback;
 import com.tonyodev.fetch.Fetch;
 import com.tonyodev.fetch.listener.FetchListener;
 import com.tonyodev.fetch.request.Request;
@@ -54,11 +45,7 @@ import com.tonyodev.fetch.request.Request;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -114,6 +101,9 @@ public class MainActivity extends BaseActivity implements MainContract.View, Nav
                     download.setDownLoadDone(true);
                     download.setInDexID(mDownloadMan.get(l));
                     downloadEntityManager.add(download);
+                    String fileURl = Environment.getExternalStorageDirectory() + TEMP_FOLDER_NAME+"/"+"YORUBA_QURAN.zip";
+                    String folderPath = Environment.getExternalStorageDirectory().getPath();
+                    new UnzipAysncTask().execute(fileURl, folderPath);
                 }
 
                 if(i == Fetch.STATUS_DOWNLOADING) {
@@ -122,8 +112,9 @@ public class MainActivity extends BaseActivity implements MainContract.View, Nav
                 }
 
                 if(i== Fetch.STATUS_ERROR){
-                    String fileURl = Environment.getExternalStorageDirectory() + FOLDER_NAME+"/"+mDownloadMan.get(l)+"YOR.PDF";
+                    String fileURl = Environment.getExternalStorageDirectory() + TEMP_FOLDER_NAME+"/"+"YORUBA_QURAN.zip";
                     cancelUploadNotifcation(mDownloadMan.get(l));
+
                     mFetch.remove(l);
                     deleteFile(fileURl);
                 }
@@ -160,12 +151,12 @@ public class MainActivity extends BaseActivity implements MainContract.View, Nav
         }
 
         //TODO if is first lauch ... Show getFile dialog
-        //getFiles();
-        String fileURl = Environment.getExternalStorageDirectory() + TEMP_FOLDER_NAME+"/"+"YORUBA_QURAN.zip";
+        getFiles();
+        /*String fileURl = Environment.getExternalStorageDirectory() + TEMP_FOLDER_NAME+"/"+"YORUBA_QURAN.zip";
         String folderPath = Environment.getExternalStorageDirectory().getPath();
-        //String fileNAme = object.getString(Constants.FILES_TABLE_INDEX_ID)+"YOR.PDF";
+        //String fileNAme = object.getString(Constants.FILE_ACCESSOR_ID)+"YOR.PDF";
 
-        new UnzipAysncTask().execute(fileURl, folderPath);
+        new UnzipAysncTask().execute(fileURl, folderPath);*/
 
     }
 
@@ -241,19 +232,25 @@ public class MainActivity extends BaseActivity implements MainContract.View, Nav
                 if (e == null) {
                     for (int i = 0; i < objects.size(); i++) {
                         ParseObject object = objects.get(i);
-                        if(object.getParseFile(Constants.FILES_FILE_OBJECT)!=null){
-                            String fileURl = Environment.getExternalStorageDirectory() + FOLDER_NAME+"/"+object.getString(Constants.FILES_TABLE_INDEX_ID)+"YOR.PDF";
-                            String folderPath = Environment.getExternalStorageDirectory() + FOLDER_NAME;
-                            String fileNAme = object.getString(Constants.FILES_TABLE_INDEX_ID)+"YOR.PDF";
+                        if(object.getString(Constants.FILE_URL_STRING)!=null){
+                            String fileURl = Environment.getExternalStorageDirectory() + TEMP_FOLDER_NAME+"/"+"YORUBA_QURAN.zip";
+                            String folderPath = Environment.getExternalStorageDirectory().getPath() + TEMP_FOLDER_NAME;
+
+                            String fileNAme = "YORUBA_QURAN.zip";
                             if(!mFileUtils.checkExistsFile(fileURl)){
-                                Request request = new Request(object.getParseFile(Constants.FILES_FILE_OBJECT).getUrl(),folderPath,fileNAme);
+                                android.app.FragmentManager manager = getFragmentManager();
+                                WarningFragment fragment1 = WarningFragment.getInstance(MainActivity.this);
+                                Bundle args = new Bundle();
+                                fragment1.setArguments(args);
+                                fragment1.show(manager, "");
+
+                                Request request = new Request(object.getString(Constants.FILE_URL_STRING),folderPath,fileNAme);
                                 long downloadId = mFetch.enqueue(request);
-                                mDownloadMan.put(downloadId, Integer.valueOf(object.getString(Constants.FILES_TABLE_INDEX_ID)));
+                                mDownloadMan.put(downloadId, object.getInt(Constants.FILE_ACCESSOR_ID));
+                                showUploadNotification("Downloading Quran File No: "+ object.getInt(Constants.FILE_ACCESSOR_ID),
+                                        (object.getInt(Constants.FILE_ACCESSOR_ID)), downloadId);
 
-                                showUploadNotification("Downloading Quran File No: "+ object.getString(Constants.FILES_TABLE_INDEX_ID),
-                                        Integer.parseInt(object.getString(Constants.FILES_TABLE_INDEX_ID)), downloadId);
-
-                                Toast.makeText(MainActivity.this, "File not exits", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "File not exits, downloading", Toast.LENGTH_SHORT).show();
                             }else {
                                 Toast.makeText(MainActivity.this, "File exits", Toast.LENGTH_SHORT).show();
                             }

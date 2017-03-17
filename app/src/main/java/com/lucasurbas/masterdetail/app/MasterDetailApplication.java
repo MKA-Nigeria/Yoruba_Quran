@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.lucasurbas.masterdetail.injection.app.ApplicationComponent;
 import com.lucasurbas.masterdetail.injection.app.ApplicationModule;
 import com.lucasurbas.masterdetail.injection.app.DaggerApplicationComponent;
@@ -16,6 +17,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import fr.xebia.android.freezer.Freezer;
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Lucas on 02/01/2017.
@@ -30,6 +32,7 @@ public class MasterDetailApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
 
         applicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))

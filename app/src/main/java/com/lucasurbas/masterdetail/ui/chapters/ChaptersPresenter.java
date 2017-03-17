@@ -1,6 +1,7 @@
 package com.lucasurbas.masterdetail.ui.chapters;
 
 import android.content.Context;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 
@@ -12,11 +13,14 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import javax.inject.Inject;
+
+import static com.lucasurbas.masterdetail.app.Constants.FOLDER_NAME;
 
 /**
  * Created by Lucas on 04/01/2017.
@@ -54,7 +58,7 @@ public class ChaptersPresenter implements ChapterContract.Presenter {
 
         chapterList = mChapterEntityManager.select()
                 .asList();
-        if(chapterList.size()==0){
+        if (chapterList.size() == 0) {
             getData();
         }
         view.showPeopleList(chapterList);
@@ -101,7 +105,13 @@ public class ChaptersPresenter implements ChapterContract.Presenter {
 
     @Override
     public void clickPerson(Chapter chapter) {
-        navigator.goToPersonDetails(chapter);
+        final String fileURl = Environment.getExternalStorageDirectory() + FOLDER_NAME + "/" + chapter.getIndexID() + "YOR.PDF";
+        File file = new File(fileURl);
+        if (file.exists()) {
+            navigator.goToPersonDetails(chapter);
+        }else {
+            view.showToast("Quran File for " + chapter.getName() + " not found, please download data files!");
+        }
     }
 
     @Override

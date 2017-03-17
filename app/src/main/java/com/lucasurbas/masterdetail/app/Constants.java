@@ -19,8 +19,8 @@ public class Constants {
     public static final String CHAPTER_FILE_NAME_PGNUM_END = "endFileNamePgNum";
 
     public static final String FILES_TABLE_NAME = "QuranFiles";
-    public static final String FILES_TABLE_INDEX_ID = "chapter_index_id";
-    public static final String FILES_FILE_OBJECT = "chapter_pdf_file";
+    public static final String FILE_ACCESSOR_ID = "accessor_id";
+    public static final String FILE_URL_STRING = "file_url";
 
 
     public static final int ZERO_INT_VALUE = 0;
