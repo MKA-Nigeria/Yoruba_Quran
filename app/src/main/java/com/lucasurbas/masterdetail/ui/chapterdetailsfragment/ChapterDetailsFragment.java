@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.voghdev.pdfviewpager.library.PDFViewPager;
 
 import static com.lucasurbas.masterdetail.app.Constants.FOLDER_NAME;
 
@@ -49,13 +51,14 @@ public class ChapterDetailsFragment extends Fragment {
     Toolbar toolbar;
     @BindView(R.id.fragment_person_details__description)
     TextView description;
-    @BindView(R.id.pdfView)
-    PDFView mDPdfView;
+    @BindView(R.id.parent_view)
+    RelativeLayout mDPdfView;
     @BindView(R.id.render_progress)
     ProgressBar mProgressView;
 
 
     private Chapter chapter;
+    private View mView;
 
     public static ChapterDetailsFragment newInstance(Chapter chapter) {
         ChapterDetailsFragment fragment = new ChapterDetailsFragment();
@@ -75,6 +78,8 @@ public class ChapterDetailsFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+
+        mView = view;
     }
 
     @Override
@@ -109,9 +114,14 @@ public class ChapterDetailsFragment extends Fragment {
         toolbar.setTitle(chapter.getName());
         description.setText(chapter.getDescription());
         final String fileURl = Environment.getExternalStorageDirectory() + FOLDER_NAME + "/" + chapter.getIndexID() + "YOR.PDF";
+        File file = new File(fileURl);
         //Uri uri = Uri.parse(fileURl);
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+
+        PDFViewPager pdfViewPager = new PDFViewPager(getContext(), file.getAbsolutePath());
+        mDPdfView.addView(pdfViewPager);
+
+       /* handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 File file = new File(fileURl);
@@ -127,13 +137,15 @@ public class ChapterDetailsFragment extends Fragment {
                     }
                 }).load();
 
+                mDPdfView.useBestQuality(false);
                 mDPdfView.enableAnnotationRendering(true);
                 mDPdfView.enableSwipe(true);
                 mDPdfView.setSwipeVertical(true);
                 mDPdfView.setHorizontalScrollBarEnabled(true);
+
             }
         }, 500);
-
+*/
     }
 
     //Attempt to load PDF Aynscronously in order to remove frame skipping while loading larger files, suratul baqarah for example!

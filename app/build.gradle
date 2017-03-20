@@ -97,5 +97,8 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.7@aar') {
         transitive = true;
     }
+
+    compile project(':pdf_view_pager')
+
 }
 
