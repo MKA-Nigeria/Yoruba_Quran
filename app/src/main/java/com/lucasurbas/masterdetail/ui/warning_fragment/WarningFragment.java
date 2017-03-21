@@ -43,7 +43,7 @@ public class WarningFragment extends DialogFragment {
         ImageView mBackImage = (ImageView) dialog.findViewById(R.id.back_ground_dialog);
 
         mTitleText.setText("Large Download");
-        mDescriptionText.setText("This app requires that you download some data files of about 200MB, it is recoomended that you continue on an unmettered wifi connection");
+        mDescriptionText.setText("This app requires that you download some data files, it is recoomended that you continue on an un-metered wifi connection");
         mOKayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,18 +1,3 @@
-/*
- * Copyright (C) 2016 Olmo Gallegos Hernández.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package es.voghdev.pdfviewpager.library.adapter;
 
 import android.app.Activity;
@@ -22,12 +7,13 @@ import android.graphics.pdf.PdfRenderer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.ParcelFileDescriptor;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +22,12 @@ import java.util.concurrent.ExecutionException;
 
 import es.voghdev.pdfviewpager.library.R;
 
-public class BasePDFPagerAdapter extends PagerAdapter {
+/**
+ * Created by abdulmujibaliu on 3/20/17.
+ */
+
+public class BasePDFRVAdapter extends RecyclerView.Adapter<BasePDFRVAdapter.PdfViewHolder> {
+
     protected static final int FIRST_PAGE = 0;
     protected static final float DEFAULT_QUALITY = 2.0f;
     protected static final int DEFAULT_OFFSCREENSIZE = 1;
@@ -50,7 +41,7 @@ public class BasePDFPagerAdapter extends PagerAdapter {
     protected float renderQuality;
     protected int offScreenSize;
 
-    public BasePDFPagerAdapter(Context context, String pdfPath) {
+    public BasePDFRVAdapter(Context context, String pdfPath) {
         this.pdfPath = pdfPath;
         this.context = context;
         this.renderQuality = DEFAULT_QUALITY;
@@ -59,16 +50,11 @@ public class BasePDFPagerAdapter extends PagerAdapter {
         init();
     }
 
-    /**
-     * This constructor was added for those who want to customize ViewPager's offScreenSize attr
-     */
-    public BasePDFPagerAdapter(Context context, String pdfPath, int offScreenSize) {
-        this.pdfPath = pdfPath;
-        this.context = context;
-        this.renderQuality = DEFAULT_QUALITY;
-        this.offScreenSize = offScreenSize;
-
-        init();
+    @Override
+    public PdfViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.view_pdf_page, parent, false);
+        return new PdfViewHolder(view);
     }
 
     @SuppressWarnings("NewApi")
@@ -110,25 +96,6 @@ public class BasePDFPagerAdapter extends PagerAdapter {
         protected PdfRendererParams[] doInBackground(Object... params) {
             return extractPdfParamsFromAllPages((PdfRenderer) params[0], (Float) params[1]);
         }
-
-        
-    }
-
-    //Apparently this is a very intensive task sha! so run that shit async!
-    @SuppressWarnings("NewApi")
-    private PdfRendererParams[] extractPdfParamsFromAllPages(PdfRenderer renderer, float renderQuality) {
-        PdfRendererParams[] paramsList = new PdfRendererParams[renderer.getPageCount()];
-        for (int i = 0; i < renderer.getPageCount(); i++) {
-            PdfRenderer.Page samplePage = getPDFPage(renderer, i);
-            PdfRendererParams params = new PdfRendererParams();
-            params.setRenderQuality(renderQuality);
-            params.setOffScreenSize(offScreenSize);
-            params.setWidth((int) (samplePage.getWidth() * renderQuality));
-            params.setHeight((int) (samplePage.getHeight() * renderQuality));
-            paramsList[i] = params;
-            samplePage.close();
-        }
-        return paramsList;
     }
 
     @SuppressWarnings("NewApi")
@@ -171,37 +138,9 @@ public class BasePDFPagerAdapter extends PagerAdapter {
         return !path.startsWith("/");
     }
 
-    @Override
     @SuppressWarnings("NewApi")
-    public Object instantiateItem(ViewGroup container, int position) {
-        View v = inflater.inflate(R.layout.view_pdf_page, container, false);
-        ImageView iv = (ImageView) v.findViewById(R.id.imageView);
-
-        if (renderer == null || getCount() < position) {
-            return v;
-        }
-
-        PdfRenderer.Page page = getPDFPage(renderer, position);
-
-        Bitmap bitmap = bitmapContainer.get(position);
-        page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
-        page.close();
-
-        iv.setImageBitmap(bitmap);
-        ((ViewPager) container).addView(v, 0);
-
-        return v;
-    }
-
-    @SuppressWarnings("NewApi")
-    public PdfRenderer.Page getPDFPage(PdfRenderer renderer, int position) {
+    protected PdfRenderer.Page getPDFPage(PdfRenderer renderer, int position) {
         return renderer.openPage(position);
-    }
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        // bitmap.recycle() causes crashes if called here.
-        // All bitmaps are recycled in close().
     }
 
     @SuppressWarnings("NewApi")
@@ -218,14 +157,32 @@ public class BasePDFPagerAdapter extends PagerAdapter {
         }
     }
 
-    @Override
     @SuppressWarnings("NewApi")
-    public int getCount() {
-        return renderer != null ? renderer.getPageCount() : 0;
+    @Override
+    public void onBindViewHolder(PdfViewHolder holder, int position) {
+        PdfRenderer.Page page = getPDFPage(renderer, position);
+
+        Bitmap bitmap = bitmapContainer.get(position);
+        page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+        page.close();
+
+        holder.iv.setImageBitmap(bitmap);
     }
 
     @Override
-    public boolean isViewFromObject(View view, Object object) {
-        return view == (View) object;
+    @SuppressWarnings("NewApi")
+    public int getItemCount() {
+        return renderer != null ? renderer.getPageCount() : 0;
+    }
+
+    public class PdfViewHolder extends RecyclerView.ViewHolder {
+        ImageView iv;
+
+        PdfViewHolder(View itemView) {
+            super(itemView);
+            iv = (ImageView) itemView.findViewById(R.id.imageView);
+
+        }
+
     }
 }

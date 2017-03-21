@@ -35,7 +35,9 @@ import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.voghdev.pdfviewpager.library.PDFRecyclerView.PDFRecyclerView;
 import es.voghdev.pdfviewpager.library.PDFViewPager;
+import es.voghdev.pdfviewpager.library.adapter.PDFPagerAdapter;
 
 import static com.lucasurbas.masterdetail.app.Constants.FOLDER_NAME;
 
@@ -59,6 +61,7 @@ public class ChapterDetailsFragment extends Fragment {
 
     private Chapter chapter;
     private View mView;
+    private PDFViewPager pdfViewPager;
 
     public static ChapterDetailsFragment newInstance(Chapter chapter) {
         ChapterDetailsFragment fragment = new ChapterDetailsFragment();
@@ -118,7 +121,8 @@ public class ChapterDetailsFragment extends Fragment {
         //Uri uri = Uri.parse(fileURl);
         Handler handler = new Handler();
 
-        PDFViewPager pdfViewPager = new PDFViewPager(getContext(), file.getAbsolutePath());
+        pdfViewPager = new PDFViewPager(getContext(), file.getAbsolutePath());
+
         mDPdfView.addView(pdfViewPager);
 
        /* handler.postDelayed(new Runnable() {
@@ -146,6 +150,12 @@ public class ChapterDetailsFragment extends Fragment {
             }
         }, 500);
 */
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ((PDFPagerAdapter) pdfViewPager.getAdapter()).close();
     }
 
     //Attempt to load PDF Aynscronously in order to remove frame skipping while loading larger files, suratul baqarah for example!
