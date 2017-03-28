@@ -67,7 +67,7 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                             android:textColor="@color/black" />
 
-                        <com.lucasurbas.masterdetail.ui.widget.HTMLTextView
+                        <com.alium.yoruba_quran.ui.widget.HTMLTextView
                             android:id="@+id/about_app_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

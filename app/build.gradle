@@ -36,6 +36,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/ASL2.0'
+        pickFirst  'META-INF/rxjava.properties'
+    }
 }
 
 dependencies {
@@ -69,7 +84,8 @@ dependencies {
     compile 'com.parse:parse-android:1.13.3'
 
     //PDF Reader
-    compile project(':android-pdf-viewer') //Edited to remove error in original library where the size of the first page is applied all throught the PDF
+    compile project(':android-pdf-viewer-v2')
+    //Edited to remove error in original library where the size of the first page is applied all throught the PDF
     //TODO request a merge with original library owner .... or maybe not ;)
 
     //ORM
@@ -86,9 +102,9 @@ dependencies {
     //Feedback library --- Using a library beacuse... why bother?? ¯\_(ツ)_/¯.
     compile 'com.codemybrainsout.rating:ratingdialog:1.0.7'
 
-
     //HTML Formatting for settings
-    compile 'com.jrummyapps:html-builder:1.0.0' //I ended up not using this shit! ... TODO remove it!
+    compile 'com.jrummyapps:html-builder:1.0.0'
+    //I ended up not using this shit! ... TODO remove it!
 
     //Opensource Libs list ... Beacuse I am thay lazy .. Also kind of strapped for time
     compile 'com.github.marcoscgdev:EasyLicensesDialog:2.0.0'
@@ -98,7 +114,6 @@ dependencies {
         transitive = true;
     }
 
-    compile project(':pdf_view_pager')
 
 }
 

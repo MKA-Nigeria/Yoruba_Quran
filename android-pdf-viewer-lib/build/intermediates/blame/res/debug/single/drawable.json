@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/abdulmujibaliu/Desktop/Yoruba_Quran/android-pdf-viewer-lib/build/intermediates/res/merged/debug/drawable/default_scroll_handle_top.xml",
+        "source": "/Users/abdulmujibaliu/Desktop/Yoruba_Quran/android-pdf-viewer-lib/src/main/res/drawable/default_scroll_handle_top.xml"
+    },
+    {
+        "merged": "/Users/abdulmujibaliu/Desktop/Yoruba_Quran/android-pdf-viewer-lib/build/intermediates/res/merged/debug/drawable/default_scroll_handle_right.xml",
+        "source": "/Users/abdulmujibaliu/Desktop/Yoruba_Quran/android-pdf-viewer-lib/src/main/res/drawable/default_scroll_handle_right.xml"
+    },
+    {
+        "merged": "/Users/abdulmujibaliu/Desktop/Yoruba_Quran/android-pdf-viewer-lib/build/intermediates/res/merged/debug/drawable/default_scroll_handle_left.xml",
+        "source": "/Users/abdulmujibaliu/Desktop/Yoruba_Quran/android-pdf-viewer-lib/src/main/res/drawable/default_scroll_handle_left.xml"
+    },
+    {
+        "merged": "/Users/abdulmujibaliu/Desktop/Yoruba_Quran/android-pdf-viewer-lib/build/intermediates/res/merged/debug/drawable/default_scroll_handle_bottom.xml",
+        "source": "/Users/abdulmujibaliu/Desktop/Yoruba_Quran/android-pdf-viewer-lib/src/main/res/drawable/default_scroll_handle_bottom.xml"
+    }
+]

@@ -15,6 +15,7 @@
  */
 package es.voghdev.pdfviewpager.library.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -46,7 +47,7 @@ public class BasePDFPagerAdapter extends PagerAdapter {
     PdfRenderer renderer;
     BitmapContainer bitmapContainer;
     LayoutInflater inflater;
-
+    public int pageCount = 0;
     protected float renderQuality;
     protected int offScreenSize;
 
@@ -74,16 +75,9 @@ public class BasePDFPagerAdapter extends PagerAdapter {
     @SuppressWarnings("NewApi")
     protected void init() {
         try {
-            try {
-                renderer = new PdfRenderer(getSeekableFileDescriptor(pdfPath));
-                inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-                PdfRendererParams[] params = new ProcessPDFAsync().execute(renderer, renderQuality).get();
-                bitmapContainer = new SimpleBitmapPool(params);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+            renderer = new PdfRenderer(getSeekableFileDescriptor(pdfPath));
+            inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+            new ProcessPDFAsync().execute(renderer, renderQuality);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -111,7 +105,15 @@ public class BasePDFPagerAdapter extends PagerAdapter {
             return extractPdfParamsFromAllPages((PdfRenderer) params[0], (Float) params[1]);
         }
 
-        
+        @SuppressLint("NewApi")
+        @Override
+        protected void onPostExecute(PdfRendererParams[] pdfRendererParamses) {
+            super.onPostExecute(pdfRendererParamses);
+            PdfRendererParams[] params = pdfRendererParamses;
+            bitmapContainer = new SimpleBitmapPool(params);
+            pageCount = renderer.getPageCount();
+            notifyDataSetChanged();
+        }
     }
 
     //Apparently this is a very intensive task sha! so run that shit async!
@@ -221,7 +223,7 @@ public class BasePDFPagerAdapter extends PagerAdapter {
     @Override
     @SuppressWarnings("NewApi")
     public int getCount() {
-        return renderer != null ? renderer.getPageCount() : 0;
+        return renderer != null ? pageCount : 0;
     }
 
     @Override

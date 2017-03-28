@@ -1,1 +1,1 @@
-include ':app', ':android-pdf-viewer', ':pdf_view_pager'
+include ':app', ':android-pdf-viewer-lib', ':android-pdf-viewer-v2'
