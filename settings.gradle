@@ -1,1 +1,1 @@
-include ':app', ':android-pdf-viewer-lib', ':android-pdf-viewer-v2'
+include ':quran_app_presentation',  ':quran_app_data', ':quran_app_domain'

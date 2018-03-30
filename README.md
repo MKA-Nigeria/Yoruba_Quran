@@ -1,26 +1,19 @@
-# Material Master/Detail
+# Yoruba Quran
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Material%20Master%2FDetail-brightgreen.svg?style=flat)](https://android-arsenal.com/details/3/5101)
+Basic Quran reader application, downloads a zip file from dropbox, unzips it and allows users to read PDF files of the Holy Quran with Yoruba translation.
 
-Android Application sample of how to implement Master/Detail pattern that follows Material Design visual language.
-
-It is a part of an article called "Case Study. Master/Detail Pattern" published on my personal blog. I highly recommend reading it to gain more context and purpose of this app. 
-
-Just follow [this link](http://goo.gl/ex8MVd).
-
-You can also try it by downloading a demo from [Play Store] (https://play.google.com/store/apps/details?id=com.lucasurbas.masterdetail).
-
-Be sure to check this sample on Mobile as well as on Tablet!
+### TODO
+- Check for memory space
+- Index files in a database and use it for checks instead
+- Bookmarks
+- Filter chapter list by name
 
 ### Screenshots
 
-![](https://github.com/lurbas/MaterialMasterDetail/blob/master/readme/tablet_iso.png)
-
-![](https://github.com/lurbas/MaterialMasterDetail/blob/master/readme/mobile_iso.png)
 
 ### License
 
-    Copyright 2017 Lucas Urbas
+    Copyright 2017 MKAN Nigeria.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

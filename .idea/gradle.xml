@@ -8,9 +8,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/android-pdf-viewer-lib" />
-            <option value="$PROJECT_DIR$/android-pdf-viewer-v2" />
-            <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/quran_app_data" />
+            <option value="$PROJECT_DIR$/quran_app_domain" />
+            <option value="$PROJECT_DIR$/quran_app_presentation" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

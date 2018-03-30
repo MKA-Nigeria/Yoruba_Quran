@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="parse_app_id">y1yQakWPdacm0IM7w0Npd8rywmV3UvISAmLdUkKu</string>
+    <string name="client_key">8QHESWaH5MZ6IXfmuVsWlOYOPgbR0RfA6NdFQKNG</string>
+    <string name="server_url">https://parseapi.back4app.com/</string>
+</resources>

@@ -3,9 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Yoruba_Quran.iml" filepath="$PROJECT_DIR$/Yoruba_Quran.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android-pdf-viewer-lib/android-pdf-viewer-lib.iml" filepath="$PROJECT_DIR$/android-pdf-viewer-lib/android-pdf-viewer-lib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android-pdf-viewer-v2/android-pdf-viewer-v2.iml" filepath="$PROJECT_DIR$/android-pdf-viewer-v2/android-pdf-viewer-v2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quran_app_data/quran_app_data.iml" filepath="$PROJECT_DIR$/quran_app_data/quran_app_data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quran_app_domain/quran_app_domain.iml" filepath="$PROJECT_DIR$/quran_app_domain/quran_app_domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/quran_app_presentation/quran_app_presentation.iml" filepath="$PROJECT_DIR$/quran_app_presentation/quran_app_presentation.iml" />
     </modules>
   </component>
 </project>
