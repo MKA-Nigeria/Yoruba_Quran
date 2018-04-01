@@ -2,10 +2,16 @@ package com.alium.yoruba_quran.ui.chapters;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.util.SortedList;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -18,6 +24,7 @@ import com.alium.yoruba_quran.ui.base.view.BaseFragment;
 import com.alium.yoruba_quran.ui.main.MainActivity;
 import com.alium.yoruba_quran.ui.widget.CustomAppBar;
 
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,10 +38,13 @@ import butterknife.ButterKnife;
 
 public class ChaptersFragment extends BaseFragment implements ChapterContract.View {
 
-    @BindView(R.id.fragment_people__swipe_refresh) SwipeRefreshLayout swipeRefresh;
-    @BindView(R.id.fragment_people__recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.fragment_people__swipe_refresh)
+    SwipeRefreshLayout swipeRefresh;
+    @BindView(R.id.fragment_people__recycler_view)
+    RecyclerView recyclerView;
 
-    @Inject ChapterContract.Presenter presenter;
+    @Inject
+    ChapterContract.Presenter presenter;
 
     private ChapterAdapter adapter;
 
@@ -44,7 +54,6 @@ public class ChaptersFragment extends BaseFragment implements ChapterContract.Vi
         fragment.setArguments(bundle);
         return fragment;
     }
-
 
 
     @Nullable
@@ -57,6 +66,8 @@ public class ChaptersFragment extends BaseFragment implements ChapterContract.Vi
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -108,6 +119,10 @@ public class ChaptersFragment extends BaseFragment implements ChapterContract.Vi
         CustomAppBar appBar = ((MainActivity) getActivity()).getCustomAppBar();
         appBar.setTitle(getString(R.string.fragment_people__title));
         appBar.setMenuRes(R.menu.people_general, R.menu.people_specific, R.menu.people_merged);
+
+        final SearchView searchView = appBar.findViewById(R.id.menu_people__search);
+        searchView.setOnQueryTextListener(new OnSearchQueryTextListener());
+
     }
 
     private void setupSwipeRefresh() {
@@ -136,9 +151,27 @@ public class ChaptersFragment extends BaseFragment implements ChapterContract.Vi
     public void injectDependencies() {
         ((MainActivity) getActivity())
                 .getMainComponent()
-                .plus(new PeopleModule(),new RoomModule(getActivity()))
+                .plus(new PeopleModule(), new RoomModule(getActivity()))
                 .inject(this);
     }
+
+    class OnSearchQueryTextListener implements SearchView.OnQueryTextListener {
+
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            final List<ChapterEntity> filteredModelList = adapter.filter(newText);
+            adapter.setPeopleList(filteredModelList);
+            return true;
+        }
+    }
+
+
 
     @Override
     public void onLandscape() {

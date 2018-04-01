@@ -26,6 +26,32 @@ public class ChapterEntity implements Parcelable{
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ChapterEntity that = (ChapterEntity) o;
+
+        if (indexID != that.indexID) return false;
+        if (isMeccan != that.isMeccan) return false;
+        if (verseCount != that.verseCount) return false;
+        if (chapterIsSplitFile != that.chapterIsSplitFile) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return description != null ? description.equals(that.description) : that.description == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + indexID;
+        result = 31 * result + (isMeccan ? 1 : 0);
+        result = 31 * result + verseCount;
+        result = 31 * result + (chapterIsSplitFile ? 1 : 0);
+        return result;
+    }
+
     protected ChapterEntity(Parcel in) {
         name = in.readString();
         description = in.readString();

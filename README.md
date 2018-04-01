@@ -7,6 +7,7 @@ Basic Quran reader application, downloads a zip file from dropbox, unzips it and
 - Index files in a database and use it for checks instead
 - Bookmarks
 - Filter chapter list by name
+- Add Screenshots and Google play link to readme
 
 ### Screenshots
 
